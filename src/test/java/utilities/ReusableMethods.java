@@ -12,7 +12,8 @@ import java.util.Date;
 
 public class ReusableMethods {
     public static void scrollWithUiScrollable(String elementText) {
-        AndroidDriver driver = (AndroidDriver)  Driver.getAndroidDriver();
+      //  AndroidDriver driver = (AndroidDriver)  Driver.getAndroidDriver(); //bu app ler icin
+        AndroidDriver driver = (AndroidDriver) BrowserDriver.getBrowserDriver();
         driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + elementText + "\"))");
         driver.findElementByXPath("//*[@text='" + elementText + "']").click();
 

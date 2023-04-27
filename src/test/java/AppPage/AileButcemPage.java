@@ -2,15 +2,14 @@ package AppPage;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 import utilities.ConfigReader;
+import utilities.BrowserDriver;
 import utilities.Driver;
 import utilities.ReusableMethods;
 
-import java.security.cert.X509Certificate;
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;

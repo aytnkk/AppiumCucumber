@@ -1,10 +1,10 @@
 package stepDefinitions;
 
+import BrowserPage.AmazonPage;
 import io.cucumber.java.en.Given;
-import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
-import pages.BrowserPage.AmazonPage;
+
 import utilities.BrowserDriver;
 
 public class AmazonBrowserStepDefinitions {
