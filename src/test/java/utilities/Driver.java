@@ -32,7 +32,7 @@ public class Driver {
             caps.setCapability(MobileCapabilityType.PLATFORM_NAME, PLATFORM);
             caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, OTOMASYON_ISMI);
             caps.setCapability("appPackage","com.ailebutcem");
-            caps.setCapability("appActivity","com.ailebutcem.MainActivity - Aile Bütçem");
+            caps.setCapability("appActivity","com.ailebutcem.MainActivity");
             caps.setCapability(MobileCapabilityType.NO_RESET,false); // true uygulama sifirlanmiyor onceki adimlari muhafaza ediyor
             //false ise her test baslangicinda sifirliyor
 

@@ -5,60 +5,65 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import AppPage.AileButcemPage;
 import utilities.Driver;
+import utilities.ConfigReader;
+
 import utilities.ReusableMethods;
 
 import java.time.Duration;
 
 public class aileButcemStep {
-
-AndroidDriver<AndroidElement> driver=Driver.getAndroidDriver();
-TouchAction action=new TouchAction<>(driver);
-
+   AndroidDriver<AndroidElement> driver= Driver.getAndroidDriver();
+   TouchAction action=new TouchAction<>(driver);
+   AileButcemPage page=new AileButcemPage();
     @Given("Kullanici kurulumlari tamamlar")
     public void kullanici_kurulumlari_tamamlar() {
         Driver.getAndroidDriver();
     }
 
-    @Given("ilk ekran ayarlarini yapin ve ardindan login sayfasina ulasin")
-    public void ilkEkranAyarlariniYapinVeArdindanLoginSayfasinaUlasin() {
+    @Then("ilk ekran ayarlarini yapar ve {string} a tiklayin ve ardindan login sayfasina ulasin")
+    public void ilkEkranAyarlariniYaparVeATiklayinVeArdindanLoginSayfasinaUlasin(String girisyap) {
         ReusableMethods.wait(2);
         for (int i=0;i<6; i++){
-            action.press(PointOption.point(924,933)).
-                    waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).
+            action.press(PointOption.point(924,933))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).
                     moveTo(PointOption.point(125,933)).release().perform();
-
         }
-        ReusableMethods.scrollWithUiScrollable("Giris yap");
-
-
-
+        ReusableMethods.scrollWithUiScrollable(girisyap);
     }
 
-    @Then("mail ve password bilgilerini girerek kullanici bilgileriyle giris yapin")
-    public void mailVePasswordBilgileriniGirerekKullaniciBilgileriyleGirisYapin() {
-
+    @Then("{string} ve {string} bilgilerini girerek kullanici bilgileriyle {string}")
+    public void veBilgileriniGirerekKullaniciBilgileriyle(String mail, String sifre, String girisyap) {
+        page.mailBox.sendKeys(ConfigReader.getProperty(mail));
+        page.passwordBox.sendKeys(ConfigReader.getProperty(sifre));
+        ReusableMethods.scrollWithUiScrollable(girisyap);
     }
-
     @Then("uygulamaya kullanici bilgileriyle giris yapildigini dogrulayin")
-    public void uygulamayaKullaniciBilgileriyleGirisYapildiginiDogrulayin() {
-
+    public void uygulamaya_kullanici_bilgileriyle_giris_yapildigini_dogrulayin() {
+        ReusableMethods.wait(1);
+       page.girisBasariliMethodu();
+    }
+    @Then("sol kisimdaki menuden {string} bolumune gidin")
+    public void solKisimdakiMenudenBolumuneGidin(String hesabim) {
+       ReusableMethods.wait(6);
+        page.solUstMenu.click();
+        ReusableMethods.scrollWithUiScrollable(hesabim);
     }
 
-    @Then("sol kisimdaki menuden hesabim bolumune gidin")
-    public void solKisimdakiMenudenHesabimBolumuneGidin() {
+    @Then("hesabim sayfasindaki bilgileri {string} {string} {string} {string} {string} degistirerek degisikleri kaydedin")
+    public void hesabimSayfasindakiBilgileriDegistirerekDegisikleriKaydedin(String isim, String soyismim, String sehir, String yas, String meslegim) {
+    page.hesabimBilgiDegisikligi(ConfigReader.getProperty(isim),
+            ConfigReader.getProperty(soyismim),ConfigReader.getProperty(sehir),ConfigReader.getProperty(yas),ConfigReader.getProperty(meslegim));
 
     }
-
-    @Then("hesabim sayfasindaki bilgileri degistirerek degisikleri kaydedin")
-    public void hesabimSayfasindakiBilgileriDegistirerekDegisikleriKaydedin() {
-
+    @Then("ardindan degisiklerin yapildigini dogrulayin")
+    public void ardindan_degisiklerin_yapildigini_dogrulayin() {
+     page.hesapBilgiDegisikliAssert();
     }
 
-    @And("ardindan degisiklerin yapildigini dogrulayin")
-    public void ardindanDegisiklerinYapildiginiDogrulayin() {
-    }
+
+
 }
